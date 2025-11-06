@@ -57,7 +57,7 @@ CREATE TABLE job_record (
 	job_id VARCHAR(20) UNIQUE NOT NULL, # PK
     job_title VARCHAR(100) UNIQUE NOT NULL,
     job_department_id VARCHAR(10) NOT NULL, # FK
-    job_salary DECIMAL NOT NULL,
+    job_salary DECIMAL(10, 2) NOT NULL,
     
     PRIMARY KEY (job_id),
     FOREIGN KEY (job_department_id) REFERENCES department_record (department_id)
@@ -77,8 +77,24 @@ CREATE TABLE location_record (
     
     PRIMARY KEY (location_id)
 );
-    
+
 -- 4. Create transactional tables; label as name_details to easily distinguish
 CREATE TABLE rental_details (
-	rental_id 
+	rental_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    rental_renter_dl_number VARCHAR(20) NOT NULL, # FK
+    rental_car_plate_number VARCHAR(7) NOT NULL, # FK
+    rental_branch_id VARCHAR(6) NOT NULL, # FK
+    rental_staff_id_pickup VARCHAR(6) NOT NULL, # FK
+    rental_staff_id_return VARCHAR(6) NOT NULL, # FK
+    
+    rental_datetime DATETIME NOT NULL,
+    rental_pickup_datetime DATETIME NOT NULL,
+    rental_expected_return_datetime DATETIME NOT NULL,
+    rental_actual_return_datetime DATETIME NOT NULL,
+    
+    rental_total_payment DECIMAL(10, 2) NOT NULL,
+    
+    PRIMARY KEY (rental_id),
+    FOREIGN KEY (rental_renter_dl_number) REFERENCES renter_record (renter_dl_number),
+    FOREIGN KEY (rental_car_plate_number) REFERENCES car_record (car_plate_number)
 );
