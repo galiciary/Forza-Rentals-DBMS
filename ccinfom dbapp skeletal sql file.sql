@@ -72,8 +72,8 @@ CREATE TABLE department_record (
 
 CREATE TABLE location_record (
 	location_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    location_city VARCHAR(50) NOT NULL,
-    location_province VARCHAR(50) UNIQUE NOT NULL,
+    location_city VARCHAR(50) UNIQUE NOT NULL,
+    location_province VARCHAR(50) NOT NULL,
     
     PRIMARY KEY (location_id)
 );
@@ -93,8 +93,47 @@ CREATE TABLE rental_details (
     rental_actual_return_datetime DATETIME NOT NULL,
     
     rental_total_payment DECIMAL(10, 2) NOT NULL,
+    rental_status ENUM('Upcoming', 'Active', 'Completed', 'Cancelled') NOT NULL,
     
     PRIMARY KEY (rental_id),
     FOREIGN KEY (rental_renter_dl_number) REFERENCES renter_record (renter_dl_number),
-    FOREIGN KEY (rental_car_plate_number) REFERENCES car_record (car_plate_number)
+    FOREIGN KEY (rental_car_plate_number) REFERENCES car_record (car_plate_number),
+    FOREIGN KEY (rental_branch_id) REFERENCES branch_record (branch_id),
+    FOREIGN KEY (rental_staff_id_pickup) REFERENCES staff_record (staff_id),
+    FOREIGN KEY (rental_staff_id_return) REFERENCES staff_record (staff_id)
+);
+
+CREATE TABLE cancellation_details (
+	cancellation_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    cancellation_rental_id VARCHAR(10) UNIQUE NOT NULL, # FK
+    cancellation_staff_id VARCHAR(6) NOT NULL, # FK
+	cancellation_date DATETIME NOT NULL,
+	cancellation_reason VARCHAR(150) NOT NULL,
+    
+	PRIMARY KEY (cancellation_id),
+	FOREIGN KEY (cancellation_rental_id) REFERENCES rental_details (rental_id),
+	FOREIGN KEY (cancellation_staff_id) REFERENCES staff_record (staff_id)
+);
+
+CREATE TABLE violation_details (
+	violation_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    violation_rental_id VARCHAR(10) NOT NULL, # FK
+    violation_staff_id VARCHAR(6) NOT NULL, # FK
+    
+	violation_type ENUM('Late Return', 'Car Damage') NOT NULL,
+	violation_penalty_fee DECIMAL(10, 2) NOT NULL,
+    
+	PRIMARY KEY (violation_id),
+	FOREIGN KEY (violation_rental_id) REFERENCES rental_details (rental_id),
+	FOREIGN KEY (violation_staff_id) REFERENCES staff_record (staff_id)
+);
+
+CREATE TABLE return_details (
+	return_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    return_rental_id VARCHAR(10) UNIQUE NOT NULL, # FK
+    return_staff_id VARCHAR(6) NOT NULL, # FK
+    
+    PRIMARY KEY (return_id),
+    FOREIGN KEY (return_rental_id) REFERENCES rental_details (rental_id),
+	FOREIGN KEY (return_staff_id) REFERENCES staff_record (staff_id)
 );
