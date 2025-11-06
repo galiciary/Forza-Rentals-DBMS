@@ -77,5 +77,8 @@ CREATE TABLE location_record (
     
     PRIMARY KEY (location_id)
 );
-
--- 4. Create transactional tables
+    
+-- 4. Create transactional tables; label as name_details to easily distinguish
+CREATE TABLE rental_details (
+	rental_id 
+);
