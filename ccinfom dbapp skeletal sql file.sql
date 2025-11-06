@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS DBCarRentals;
 -- 2. Use the car rental database for creating tables
 USE DBCarRentals;
 
--- 3. Create primary tables
+-- 3. Create primary tables 
 
 CREATE TABLE renter_record (
 	renter_dl_number VARCHAR(20) UNIQUE NOT NULL, # PK
