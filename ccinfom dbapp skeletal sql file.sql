@@ -56,8 +56,8 @@ CREATE TABLE renter_record (
 	renter_dl_number VARCHAR(20) UNIQUE NOT NULL, # PK
     renter_first_name VARCHAR(50) NOT NULL,
     renter_last_name VARCHAR(50) NOT NULL,
-	renter_phone_number VARCHAR(11) UNIQUE NOT NULL,
-	renter_email_address VARCHAR(100) UNIQUE NOT NULL,
+	renter_phone_number VARCHAR(11) NOT NULL,
+	renter_email_address VARCHAR(100) NOT NULL,
     
     PRIMARY KEY (renter_dl_number)
 );
