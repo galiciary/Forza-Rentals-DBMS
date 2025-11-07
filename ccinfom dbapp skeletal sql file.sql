@@ -103,15 +103,15 @@ CREATE TABLE rental_details (
 );
 
 CREATE TABLE cancellation_details (
-	cancellation_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    cancellation_id VARCHAR(10) UNIQUE NOT NULL, # PK
     cancellation_rental_id VARCHAR(10) UNIQUE NOT NULL, # FK
     cancellation_staff_id VARCHAR(6) NOT NULL, # FK
-	cancellation_date DATETIME NOT NULL,
-	cancellation_reason VARCHAR(150) NOT NULL,
+    cancellation_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    cancellation_reason VARCHAR(150) NOT NULL,
     
-	PRIMARY KEY (cancellation_id),
-	FOREIGN KEY (cancellation_rental_id) REFERENCES rental_details (rental_id),
-	FOREIGN KEY (cancellation_staff_id) REFERENCES staff_record (staff_id)
+    PRIMARY KEY (cancellation_id),
+    FOREIGN KEY (cancellation_rental_id) REFERENCES rental_details (rental_id),
+    FOREIGN KEY (cancellation_staff_id) REFERENCES staff_record (staff_id)
 );
 
 CREATE TABLE violation_details (
@@ -204,10 +204,6 @@ INSERT INTO job_record (job_id, job_title, job_department_id, job_salary) VALUES
 ('LGL002', 'Legal Officer', 'DEPT_LGL', 70000.00),
 ('LGL003', 'Paralegal Assistant', 'DEPT_LGL', 50000.00);
 
-#
-
-
-
 # Location Record
 INSERT INTO location_record (location_id, location_city, location_province)
 VALUES
@@ -257,38 +253,117 @@ INSERT INTO branch_record (branch_id, branch_name, branch_email_address, branch_
 INSERT INTO staff_record (staff_id, staff_first_name, staff_last_name, staff_job_id, staff_branch_id)
 VALUES
 -- Headquarters / Administration (Metro Manila)
-('STF001', 'Isabella', 'Reyes', 'JOB001', 'BRN001'), -- President
-('STF002', 'Marcus', 'Tan', 'JOB002', 'BRN001'), -- Executive
+('STF001', 'Isabella', 'Reyes', 'ADM001', 'BRN001'), -- President
+('STF002', 'Marcus', 'Tan', 'ADM002', 'BRN001'), -- Executive Assistant
 
 -- Metro Manila Branches
-('STF003', 'Lara', 'Santos', 'JOB003', 'BRN002'), -- Manager
-('STF004', 'John', 'Del Rosario', 'JOB004', 'BRN002'), -- Supervisor
-('STF005', 'Ella', 'Chua', 'JOB007', 'BRN003'), -- Customer Representative
-('STF006', 'Kyle', 'Ramos', 'JOB006', 'BRN003'), -- Clerk
+('STF003', 'Lara', 'Santos', 'ADM003', 'BRN002'), -- Administrative Staff (or branch manager if needed)
+('STF004', 'John', 'Del Rosario', 'HR002', 'BRN002'), -- Human Resources Officer (as Supervisor)
+('STF005', 'Ella', 'Chua', 'CST002', 'BRN003'), -- Customer Service Representative
+('STF006', 'Kyle', 'Ramos', 'CST003', 'BRN003'), -- Front Desk Clerk
 
 -- Cebu Branches
-('STF007', 'Patrick', 'Lim', 'JOB003', 'BRN004'), -- Manager
-('STF008', 'Rina', 'Fernandez', 'JOB005', 'BRN004'), -- Mechanic
-('STF009', 'Ella', 'Chua', 'JOB007', 'BRN005'), -- Customer Representative (duplicate name)
-('STF010', 'Andrea', 'Torres', 'JOB006', 'BRN006'), -- Clerk
+('STF007', 'Patrick', 'Lim', 'OPS002', 'BRN004'), -- Branch Manager
+('STF008', 'Rina', 'Fernandez', 'MTN002', 'BRN004'), -- Mechanic
+('STF009', 'Ella', 'Chua', 'CST002', 'BRN005'), -- Customer Service Representative (duplicate name)
+('STF010', 'Andrea', 'Torres', 'CST003', 'BRN006'), -- Front Desk Clerk
 
 -- Provincial Branches
-('STF011', 'John', 'Del Rosario', 'JOB004', 'BRN007'), -- Supervisor (duplicate name)
-('STF012', 'Nina', 'Lopez', 'JOB007', 'BRN008'), -- Customer Representative
-('STF013', 'Patrick', 'Lim', 'JOB005', 'BRN009'), -- Mechanic (duplicate name)
-('STF014', 'Carla', 'Gomez', 'JOB006', 'BRN010'), -- Clerk
-('STF015', 'Mia', 'Villanueva', 'JOB007', 'BRN011'); -- Customer Representative
+('STF011', 'John', 'Del Rosario', 'HR002', 'BRN007'), -- Human Resources Officer (duplicate name)
+('STF012', 'Nina', 'Lopez', 'CST002', 'BRN008'), -- Customer Service Representative
+('STF013', 'Patrick', 'Lim', 'MTN002', 'BRN009'), -- Mechanic (duplicate name)
+('STF014', 'Carla', 'Gomez', 'CST003', 'BRN010'), -- Front Desk Clerk
+('STF015', 'Mia', 'Villanueva', 'CST002', 'BRN011'); -- Customer Service Representative
 
-# Rental Details    
+# Renter Record    
 INSERT INTO renter_record (renter_dl_number, renter_first_name, renter_last_name, renter_phone_number, renter_email_address)
 VALUES
-('DLN0012345', 'Angela', 'Cruz', '09171234567', 'angela.cruz@email.com'),
-('DLN0012346', 'Martin', 'Santos', '09281234567', 'martin.santos@email.com'),
-('DLN0012347', 'Bianca', 'Torres', '09351234567', 'bianca.torres@email.com'),
-('DLN0012348', 'Carlos', 'Reyes', '09451234567', 'carlos.reyes@email.com'),
-('DLN0012349', 'Denise', 'Lopez', '09561234567', 'denise.lopez@email.com'),
-('DLN0012350', 'Francis', 'Lim', '09671234567', 'francis.lim@email.com'),
-('DLN0012351', 'Julia', 'Tan', '09781234567', 'julia.tan@email.com'),
-('DLN0012352', 'Nathan', 'Gomez', '09891234567', 'nathan.gomez@email.com'),
-('DLN0012353', 'Patricia', 'Villanueva', '09901234567', 'patricia.villanueva@email.com'),
-('DLN0012354', 'Rafael', 'Chua', '09183456789', 'rafael.chua@email.com');
+('MC1234567890', 'Angela', 'Cruz', '09171234567', 'angela.cruz@email.com'),
+('LL0000000001', 'Martin', 'Santos', '09281234567', 'martin.santos@email.com'),
+('MC9876543210', 'Bianca', 'Torres', '09351234567', 'bianca.torres@email.com'),
+('LL1122334455', 'Carlos', 'Reyes', '09451234567', 'carlos.reyes@email.com'),
+('MC1029384756', 'Denise', 'Lopez', '09561234567', 'denise.lopez@email.com'),
+('LL2233445566', 'Francis', 'Lim', '09671234567', 'francis.lim@email.com'),
+('MC5647382910', 'Julia', 'Tan', '09781234567', 'julia.tan@email.com'),
+('LL3344556677', 'Nathan', 'Gomez', '09891234567', 'nathan.gomez@email.com'),
+('MC1827364556', 'Patricia', 'Villanueva', '09901234567', 'patricia.villanueva@email.com'),
+('LL4455667788', 'Rafael', 'Chua', '09183456789', 'rafael.chua@email.com');
+
+# Car Record
+INSERT INTO car_record (car_plate_number, car_transmission, car_model, car_brand, car_year_manufactured, car_mileage, car_seat_number, car_status, car_branch_id)
+VALUES
+-- Manila Branch
+('ABC1234', 'Automatic', 'Vios', 'Toyota', 2022, 18000, 5, 'Available', 'BRN001'),
+('DEF5678', 'Manual', 'Accent', 'Hyundai', 2021, 25000, 5, 'Rented', 'BRN001'),
+
+-- Makati Branch
+('GHI9012', 'Automatic', 'Civic', 'Honda', 2023, 12000, 5, 'Available', 'BRN002'),
+('JKL3456', 'Automatic', 'Almera', 'Nissan', 2022, 20000, 5, 'Under Maintenance', 'BRN002'),
+
+-- Quezon City Branch
+('MNO7890', 'Manual', 'Mirage', 'Mitsubishi', 2020, 35000, 5, 'Available', 'BRN003'),
+
+-- Cebu City Branch
+('PQR2345', 'Automatic', 'Fortuner', 'Toyota', 2023, 8000, 7, 'Rented', 'BRN004'),
+('STU6789', 'Manual', 'Wigo', 'Toyota', 2021, 22000, 5, 'Available', 'BRN004'),
+
+-- Mandaue Branch
+('VWX1122', 'Automatic', 'City', 'Honda', 2022, 15000, 5, 'Available', 'BRN005'),
+
+-- Lapu-Lapu City Branch
+('YZA3344', 'Automatic', 'CR-V', 'Honda', 2023, 6000, 7, 'Rented', 'BRN006'),
+
+-- Davao City Branch
+('BCD5566', 'Manual', 'Ranger', 'Ford', 2021, 28000, 5, 'Available', 'BRN007'),
+
+-- Iloilo City Branch
+('EFG7788', 'Automatic', 'Corolla Cross', 'Toyota', 2023, 9000, 5, 'Available', 'BRN008'),
+
+-- Baguio City Branch
+('HIJ9900', 'Manual', 'Jimny', 'Suzuki', 2020, 40000, 4, 'Under Maintenance', 'BRN009'),
+
+-- Puerto Princesa Branch
+('KLM2233', 'Automatic', 'Everest', 'Ford', 2022, 17000, 7, 'Available', 'BRN010'),
+
+-- Tagaytay Branch
+('NOP4455', 'Automatic', 'Terra', 'Nissan', 2023, 7000, 7, 'Available', 'BRN011');
+
+# Rental Details
+INSERT INTO rental_details (
+    rental_id,
+    rental_renter_dl_number,
+    rental_car_plate_number,
+    rental_branch_id,
+    rental_staff_id_pickup,
+    rental_staff_id_return,
+    rental_datetime,
+    rental_pickup_datetime,
+    rental_expected_return_datetime,
+    rental_actual_return_datetime,
+    rental_total_payment,
+    rental_status
+)
+VALUES
+-- Completed rental
+('RNT001', 'MC1234567890', 'ABC1234', 'BRN001', 'STF005', 'STF005', 
+ '2025-11-01 09:00:00', '2025-11-01 09:15:00', '2025-11-05 09:00:00', '2025-11-05 08:50:00', 15000.00, 'Completed'),
+
+-- Active rental
+('RNT002', 'LL0000000001', 'DEF5678', 'BRN001', 'STF006', 'STF006', 
+ '2025-11-06 10:00:00', '2025-11-06 10:20:00', '2025-11-10 10:00:00', '2025-11-07 12:00:00', 18000.00, 'Active'),
+
+-- Upcoming rental
+('RNT003', 'MC9876543210', 'GHI9012', 'BRN002', 'STF005', 'STF005', 
+ '2025-11-07 08:00:00', '2025-11-10 08:00:00', '2025-11-15 08:00:00', '2025-11-15 08:00:00', 20000.00, 'Upcoming'),
+
+-- Completed rental
+('RNT004', 'LL1122334455', 'JKL3456', 'BRN002', 'STF006', 'STF006', 
+ '2025-10-25 14:00:00', '2025-10-25 14:15:00', '2025-10-30 14:00:00', '2025-10-30 13:50:00', 22000.00, 'Completed'),
+
+-- Upcoming rental
+('RNT005', 'MC1029384756', 'MNO7890', 'BRN003', 'STF005', 'STF005', 
+ '2025-11-07 11:00:00', '2025-11-09 11:00:00', '2025-11-14 11:00:00', '2025-11-14 11:00:00', 17000.00, 'Upcoming'),
+
+-- Active rental
+('RNT006', 'LL2233445566', 'PQR2345', 'BRN004', 'STF009', 'STF009', 
+ '2025-11-05 09:30:00', '2025-11-05 09:45:00', '2025-11-12 09:30:00', '2025-11-07 09:00:00', 25000.00, 'Active');
