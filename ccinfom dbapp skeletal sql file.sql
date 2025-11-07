@@ -279,7 +279,7 @@ VALUES
 ('STF014', 'Carla', 'Gomez', 'JOB006', 'BRN010'), -- Clerk
 ('STF015', 'Mia', 'Villanueva', 'JOB007', 'BRN011'); -- Customer Representative
 
-# Rental Details
+# Rental Details    
 INSERT INTO renter_record (renter_dl_number, renter_first_name, renter_last_name, renter_phone_number, renter_email_address)
 VALUES
 ('DLN0012345', 'Angela', 'Cruz', '09171234567', 'angela.cruz@email.com'),
