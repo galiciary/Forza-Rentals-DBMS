@@ -138,3 +138,157 @@ CREATE TABLE return_details (
 );
 
 -- 5. Input default data
+# Department Record
+INSERT INTO department_record (department_id, department_name)
+VALUES
+('DEPT_ADM', 'Administration'),
+('DEPT_FIN', 'Finance'),
+('DEPT_HR', 'Human Resources'),
+('DEPT_MKT', 'Marketing'),
+('DEPT_SLS', 'Sales'),
+('DEPT_IT', 'Information Technology'),
+('DEPT_OPS', 'Operations'),
+('DEPT_CST', 'Customer Service'),
+('DEPT_MTN', 'Maintenance'),
+('DEPT_LGL', 'Legal Affairs');
+
+# Job Record
+INSERT INTO job_record (job_id, job_title, job_department_id, job_salary) VALUES
+-- Administration Department
+('ADM001', 'President', 'DEPT_ADM', 150000.00),
+('ADM002', 'Executive Assistant', 'DEPT_ADM', 60000.00),
+('ADM003', 'Administrative Staff', 'DEPT_ADM', 40000.00),
+
+-- Finance Department
+('FIN001', 'Finance Manager', 'DEPT_FIN', 90000.00),
+('FIN002', 'Accountant', 'DEPT_FIN', 60000.00),
+('FIN003', 'Finance Assistant', 'DEPT_FIN', 45000.00),
+
+-- Human Resources Department
+('HR001', 'Human Resources Manager', 'DEPT_HR', 85000.00),
+('HR002', 'Human Resources Officer', 'DEPT_HR', 55000.00),
+('HR003', 'Human Resources Staff', 'DEPT_HR', 42000.00),
+
+-- Marketing Department
+('MKT001', 'Marketing Manager', 'DEPT_MKT', 85000.00),
+('MKT002', 'Marketing Specialist', 'DEPT_MKT', 50000.00),
+('MKT003', 'Social Media Coordinator', 'DEPT_MKT', 42000.00),
+
+-- Sales Department
+('SLS001', 'Sales Manager', 'DEPT_SLS', 88000.00),
+('SLS002', 'Sales Executive', 'DEPT_SLS', 55000.00),
+('SLS003', 'Sales Associate', 'DEPT_SLS', 42000.00),
+
+-- Information Technology Department
+('IT001', 'IT Manager', 'DEPT_IT', 95000.00),
+('IT002', 'Systems Administrator', 'DEPT_IT', 70000.00),
+('IT003', 'Technical Support Staff', 'DEPT_IT', 50000.00),
+
+-- Operations Department
+('OPS001', 'Operations Manager', 'DEPT_OPS', 90000.00),
+('OPS002', 'Branch Manager', 'DEPT_OPS', 75000.00),
+('OPS003', 'Rental Staff', 'DEPT_OPS', 45000.00),
+
+-- Customer Service Department
+('CST001', 'Customer Service Manager', 'DEPT_CST', 55000.00),
+('CST002', 'Customer Service Representative', 'DEPT_CST', 42000.00),
+('CST003', 'Front Desk Clerk', 'DEPT_CST', 40000.00),
+
+-- Maintenance Department
+('MTN001', 'Maintenance Manager', 'DEPT_MTN', 75000.00),
+('MTN002', 'Mechanic', 'DEPT_MTN', 48000.00),
+('MTN003', 'Maintenance Crew', 'DEPT_MTN', 40000.00),
+
+-- Legal Affairs Department
+('LGL001', 'Legal Affairs Manager', 'DEPT_LGL', 95000.00),
+('LGL002', 'Legal Officer', 'DEPT_LGL', 70000.00),
+('LGL003', 'Paralegal Assistant', 'DEPT_LGL', 50000.00);
+
+#
+
+
+
+# Location Record
+INSERT INTO location_record (location_id, location_city, location_province)
+VALUES
+-- Metro Manila (multiple key cities)
+('MNL001', 'Manila', 'Metro Manila'),
+('MNL002', 'Makati', 'Metro Manila'),
+('MNL003', 'Quezon City', 'Metro Manila'),
+
+-- Cebu (multiple key cities)
+('CEB001', 'Cebu City', 'Cebu'),
+('CEB002', 'Mandaue', 'Cebu'),
+('CEB003', 'Lapu-Lapu City', 'Cebu'),
+
+-- Other top provinces
+('DAV001', 'Davao City', 'Davao del Sur'),
+('ILO001', 'Iloilo City', 'Iloilo'),
+('BEN001', 'Baguio City', 'Benguet'),
+('PAL001', 'Puerto Princesa', 'Palawan'),
+('CAV001', 'Tagaytay', 'Cavite'),
+('ILN001', 'Laoag City', 'Ilocos Norte'),
+('LEY001', 'Tacloban City', 'Leyte'),
+('NEG001', 'Bacolod City', 'Negros Occidental');
+
+# Branch Record
+INSERT INTO branch_record (branch_id, branch_name, branch_email_address, branch_location_id) VALUES
+-- Metro Manila
+('BRN001', 'Forza Rentals Manila', 'manila@forzarentals.ph', 'MNL001'),
+('BRN002', 'Forza Rentals Makati', 'makati@forzarentals.ph', 'MNL002'),
+('BRN003', 'Forza Rentals Quezon City', 'quezoncity@forzarentals.ph', 'MNL003'),
+
+-- Cebu
+('BRN004', 'Forza Rentals Cebu City', 'cebu@forzarentals.ph', 'CEB001'),
+('BRN005', 'Forza Rentals Mandaue', 'mandaue@forzarentals.ph', 'CEB002'),
+('BRN006', 'Forza Rentals Lapu-Lapu City', 'lapulapu@forzarentals.ph', 'CEB003'),
+
+-- Other Provinces
+('BRN007', 'Forza Rentals Davao City', 'davao@forzarentals.ph', 'DAV001'),
+('BRN008', 'Forza Rentals Iloilo City', 'iloilo@forzarentals.ph', 'ILO001'),
+('BRN009', 'Forza Rentals Baguio City', 'baguio@forzarentals.ph', 'BEN001'),
+('BRN010', 'Forza Rentals Puerto Princesa', 'puertoprincesa@forzarentals.ph', 'PAL001'),
+('BRN011', 'Forza Rentals Tagaytay', 'tagaytay@forzarentals.ph', 'CAV001'),
+('BRN012', 'Forza Rentals Laoag City', 'laoag@forzarentals.ph', 'ILN001'),
+('BRN013', 'Forza Rentals Tacloban City', 'tacloban@forzarentals.ph', 'LEY001'),
+('BRN014', 'Forza Rentals Bacolod City', 'bacolod@forzarentals.ph', 'NEG001');
+
+# Staff Record
+INSERT INTO staff_record (staff_id, staff_first_name, staff_last_name, staff_job_id, staff_branch_id)
+VALUES
+-- Headquarters / Administration (Metro Manila)
+('STF001', 'Isabella', 'Reyes', 'JOB001', 'BRN001'), -- President
+('STF002', 'Marcus', 'Tan', 'JOB002', 'BRN001'), -- Executive
+
+-- Metro Manila Branches
+('STF003', 'Lara', 'Santos', 'JOB003', 'BRN002'), -- Manager
+('STF004', 'John', 'Del Rosario', 'JOB004', 'BRN002'), -- Supervisor
+('STF005', 'Ella', 'Chua', 'JOB007', 'BRN003'), -- Customer Representative
+('STF006', 'Kyle', 'Ramos', 'JOB006', 'BRN003'), -- Clerk
+
+-- Cebu Branches
+('STF007', 'Patrick', 'Lim', 'JOB003', 'BRN004'), -- Manager
+('STF008', 'Rina', 'Fernandez', 'JOB005', 'BRN004'), -- Mechanic
+('STF009', 'Ella', 'Chua', 'JOB007', 'BRN005'), -- Customer Representative (duplicate name)
+('STF010', 'Andrea', 'Torres', 'JOB006', 'BRN006'), -- Clerk
+
+-- Provincial Branches
+('STF011', 'John', 'Del Rosario', 'JOB004', 'BRN007'), -- Supervisor (duplicate name)
+('STF012', 'Nina', 'Lopez', 'JOB007', 'BRN008'), -- Customer Representative
+('STF013', 'Patrick', 'Lim', 'JOB005', 'BRN009'), -- Mechanic (duplicate name)
+('STF014', 'Carla', 'Gomez', 'JOB006', 'BRN010'), -- Clerk
+('STF015', 'Mia', 'Villanueva', 'JOB007', 'BRN011'); -- Customer Representative
+
+# Rental Details
+INSERT INTO renter_record (renter_dl_number, renter_first_name, renter_last_name, renter_phone_number, renter_email_address)
+VALUES
+('DLN0012345', 'Angela', 'Cruz', '09171234567', 'angela.cruz@email.com'),
+('DLN0012346', 'Martin', 'Santos', '09281234567', 'martin.santos@email.com'),
+('DLN0012347', 'Bianca', 'Torres', '09351234567', 'bianca.torres@email.com'),
+('DLN0012348', 'Carlos', 'Reyes', '09451234567', 'carlos.reyes@email.com'),
+('DLN0012349', 'Denise', 'Lopez', '09561234567', 'denise.lopez@email.com'),
+('DLN0012350', 'Francis', 'Lim', '09671234567', 'francis.lim@email.com'),
+('DLN0012351', 'Julia', 'Tan', '09781234567', 'julia.tan@email.com'),
+('DLN0012352', 'Nathan', 'Gomez', '09891234567', 'nathan.gomez@email.com'),
+('DLN0012353', 'Patricia', 'Villanueva', '09901234567', 'patricia.villanueva@email.com'),
+('DLN0012354', 'Rafael', 'Chua', '09183456789', 'rafael.chua@email.com');
