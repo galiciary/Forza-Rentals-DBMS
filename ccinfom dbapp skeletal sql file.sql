@@ -5,30 +5,29 @@ CREATE DATABASE IF NOT EXISTS DBCarRentals;
 USE DBCarRentals;
 
 -- 3. Create primary tables 
-
-CREATE TABLE renter_record (
-	renter_dl_number VARCHAR(20) UNIQUE NOT NULL, # PK
-    renter_first_name VARCHAR(50) NOT NULL,
-    renter_last_name VARCHAR(50) NOT NULL,
-	renter_phone_number VARCHAR(11) UNIQUE NOT NULL,
-	renter_email_address VARCHAR(100) UNIQUE NOT NULL,
+CREATE TABLE department_record (
+	department_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    department_name VARCHAR(50) UNIQUE NOT NULL,
     
-    PRIMARY KEY (renter_dl_number)
+    PRIMARY KEY (department_id)
 );
+
+CREATE TABLE job_record (
+	job_id VARCHAR(20) UNIQUE NOT NULL, # PK
+    job_title VARCHAR(100) UNIQUE NOT NULL,
+    job_department_id VARCHAR(10) NOT NULL, # FK
+    job_salary DECIMAL(10, 2) NOT NULL,
     
-CREATE TABLE car_record (
-	car_plate_number VARCHAR(7) UNIQUE NOT NULL, # PK
-    car_transmission ENUM('Manual', 'Automatic') NOT NULL,
-	car_model VARCHAR(50) NOT NULL,
-    car_brand VARCHAR(50) NOT NULL,
-    car_year_manufactured YEAR NOT NULL,
-    car_mileage INT NOT NULL,
-    car_seat_number INT NOT NULL,
-    car_status ENUM('Available', 'Rented', 'Under Maintenance') NOT NULL DEFAULT 'Available',
-	car_branch_id VARCHAR(6) NOT NULL, # FK
+    PRIMARY KEY (job_id),
+    FOREIGN KEY (job_department_id) REFERENCES department_record (department_id)
+);
+
+CREATE TABLE location_record (
+	location_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    location_city VARCHAR(50) UNIQUE NOT NULL,
+    location_province VARCHAR(50) NOT NULL,
     
-    PRIMARY KEY (car_plate_number),
-    FOREIGN KEY (car_branch_id) REFERENCES branch_record (branch_id)
+    PRIMARY KEY (location_id)
 );
 
 CREATE TABLE branch_record (
@@ -53,29 +52,29 @@ CREATE TABLE staff_record (
     FOREIGN KEY (staff_branch_id) REFERENCES branch_record (branch_id)
 );
 
-CREATE TABLE job_record (
-	job_id VARCHAR(20) UNIQUE NOT NULL, # PK
-    job_title VARCHAR(100) UNIQUE NOT NULL,
-    job_department_id VARCHAR(10) NOT NULL, # FK
-    job_salary DECIMAL(10, 2) NOT NULL,
+CREATE TABLE renter_record (
+	renter_dl_number VARCHAR(20) UNIQUE NOT NULL, # PK
+    renter_first_name VARCHAR(50) NOT NULL,
+    renter_last_name VARCHAR(50) NOT NULL,
+	renter_phone_number VARCHAR(11) UNIQUE NOT NULL,
+	renter_email_address VARCHAR(100) UNIQUE NOT NULL,
     
-    PRIMARY KEY (job_id),
-    FOREIGN KEY (job_department_id) REFERENCES department_record (department_id)
+    PRIMARY KEY (renter_dl_number)
 );
-
-CREATE TABLE department_record (
-	department_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    department_name VARCHAR(50) UNIQUE NOT NULL,
     
-    PRIMARY KEY (department_id)
-);
-
-CREATE TABLE location_record (
-	location_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    location_city VARCHAR(50) UNIQUE NOT NULL,
-    location_province VARCHAR(50) NOT NULL,
+CREATE TABLE car_record (
+	car_plate_number VARCHAR(7) UNIQUE NOT NULL, # PK
+    car_transmission ENUM('Manual', 'Automatic') NOT NULL,
+	car_model VARCHAR(50) NOT NULL,
+    car_brand VARCHAR(50) NOT NULL,
+    car_year_manufactured YEAR NOT NULL,
+    car_mileage INT NOT NULL,
+    car_seat_number INT NOT NULL,
+    car_status ENUM('Available', 'Rented', 'Under Maintenance') NOT NULL DEFAULT 'Available',
+	car_branch_id VARCHAR(6) NOT NULL, # FK
     
-    PRIMARY KEY (location_id)
+    PRIMARY KEY (car_plate_number),
+    FOREIGN KEY (car_branch_id) REFERENCES branch_record (branch_id)
 );
 
 -- 4. Create transactional tables; label as name_details to easily distinguish
@@ -137,3 +136,5 @@ CREATE TABLE return_details (
     FOREIGN KEY (return_rental_id) REFERENCES rental_details (rental_id),
 	FOREIGN KEY (return_staff_id) REFERENCES staff_record (staff_id)
 );
+
+-- 5. Input default data
