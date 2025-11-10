@@ -62,7 +62,7 @@ CREATE TABLE renter_record (
     
     PRIMARY KEY (renter_dl_number)
 );
-    
+        
 CREATE TABLE car_record (
 	car_plate_number VARCHAR(7) UNIQUE NOT NULL, # PK
     car_transmission ENUM('Manual', 'Automatic') NOT NULL,
