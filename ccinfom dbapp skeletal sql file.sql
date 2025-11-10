@@ -23,9 +23,10 @@ CREATE TABLE job_record (
 );
 
 CREATE TABLE location_record (
-	location_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    location_city VARCHAR(50) UNIQUE NOT NULL,
+    location_id VARCHAR(10) UNIQUE NOT NULL, # PK
+    location_city VARCHAR(50) NOT NULL,
     location_province VARCHAR(50) NOT NULL,
+    UNIQUE (location_city, location_province),
     
     PRIMARY KEY (location_id)
 );
