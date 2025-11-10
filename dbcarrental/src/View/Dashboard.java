@@ -1,13 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 /**
+ * The {@code Dashboard} class represents the main interface of the Forza Car Rental system.
+ * <p>
+ * It serves as the central navigation hub for the application, allowing staff members
+ * to access core functionalities such as managing records, creating transactions,
+ * and exiting the system.
+ * </p>
+ * <p>
+ * This class is part of the View layer (V in MVC), focusing solely on the user interface
+ * and delegating business logic to the Controller layer.
+ * </p>
  *
- * @author Lance
+ * <p><b>Features:</b></p>
+ * <ul>
+ *   <li>Displays system title and branding.</li>
+ *   <li>Provides navigation buttons for major system operations.</li>
+ *   <li>Includes basic UI enhancements such as hover effects and styled buttons.</li>
+ * </ul>
+ *
+ * @author Galicia
+ * @author Marcelino
+ * @author Samarista
+ * @author Sy
+ * @version 1.0
  */
+
 public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
@@ -28,47 +46,90 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        footNote = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
+        manageRecords = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+        createTransactions = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
         getContentPane().setLayout(null);
 
+        footNote.setFont(new java.awt.Font("Segoe UI Emoji", 2, 10)); // NOI18N
+        footNote.setForeground(new java.awt.Color(255, 255, 255));
+        footNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        footNote.setText("ALL RIGHTS RESERVED");
+        getContentPane().add(footNote);
+        footNote.setBounds(300, 390, 210, 16);
+
+        title.setFont(new java.awt.Font("ROG Fonts", 3, 48)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Forza Rentals");
+        getContentPane().add(title);
+        title.setBounds(140, 50, 540, 50);
+
+        manageRecords.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        manageRecords.setText("RECORDS");
+        manageRecords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageRecordsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(manageRecords);
+        manageRecords.setBounds(80, 200, 160, 30);
+
+        exit.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        exit.setText("EXIT");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(exit);
+        exit.setBounds(80, 300, 160, 30);
+
+        createTransactions.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        createTransactions.setText("TRANSACTIONS");
+        createTransactions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        createTransactions.setMaximumSize(new java.awt.Dimension(72, 27));
+        createTransactions.setMinimumSize(new java.awt.Dimension(72, 27));
+        createTransactions.setPreferredSize(new java.awt.Dimension(72, 27));
+        createTransactions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createTransactionsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(createTransactions);
+        createTransactions.setBounds(80, 250, 160, 30);
+
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 458, 779, 458);
 
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(320, 70, 37, 16);
-
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CCINFOM FILES (2).png"))); // NOI18N
         jLabel2.setText("jLabel2");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(jLabel2)
-                .addContainerGap(296, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel2)
-                .addContainerGap(191, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(390, 130, 430, 250);
+        jLabel2.setAlignmentY(0.0F);
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, -40, 820, 540);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void createTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createTransactionsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createTransactionsActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exitActionPerformed
+
+    private void manageRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRecordsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_manageRecordsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,9 +157,12 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton createTransactions;
+    private javax.swing.JButton exit;
+    private javax.swing.JLabel footNote;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton manageRecords;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

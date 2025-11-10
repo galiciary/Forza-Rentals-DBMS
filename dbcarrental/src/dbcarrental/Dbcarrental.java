@@ -1,20 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package dbcarrental;
 
+import view.UserLogin;
+
 /**
+ * The {@code Dbcarrental} class serves as the main entry point of the Forza Car Rental system.
+ * <p>
+ * It initializes the application and launches the {@code UserLogin} interface.
+ * </p>
  *
- * @author Lance
+ * @author Galicia
+ * @author Marcelino
+ * @author Samarista
+ * @author Sy
+ * @version 1.0
  */
 public class Dbcarrental {
 
     /**
-     * @param args the command line arguments
+     * The main method that starts the Car Rental System.
+     *
+     * @param args command-line arguments (unused)
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        java.awt.EventQueue.invokeLater(() -> new UserLogin().setVisible(true));
     }
-    
 }
