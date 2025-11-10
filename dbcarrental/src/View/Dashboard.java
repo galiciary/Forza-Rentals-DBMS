@@ -63,7 +63,7 @@ public class Dashboard extends javax.swing.JFrame {
         footNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         footNote.setText("ALL RIGHTS RESERVED");
         getContentPane().add(footNote);
-        footNote.setBounds(300, 390, 210, 16);
+        footNote.setBounds(300, 400, 210, 16);
 
         title.setFont(new java.awt.Font("ROG Fonts", 3, 48)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,7 +108,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jLayeredPane1);
-        jLayeredPane1.setBounds(0, 458, 779, 458);
+        jLayeredPane1.setBounds(0, 458, 0, 0);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CCINFOM FILES (2).png"))); // NOI18N
         jLabel2.setText("jLabel2");
