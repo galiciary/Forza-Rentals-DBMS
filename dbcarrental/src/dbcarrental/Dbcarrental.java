@@ -1,6 +1,6 @@
 package dbcarrental;
 
-import view.UserLogin;
+import View.Dashboard;
 
 /**
  * The {@code Dbcarrental} class serves as the main entry point of the Forza Car Rental system.
@@ -22,6 +22,6 @@ public class Dbcarrental {
      * @param args command-line arguments (unused)
      */
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> new UserLogin().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Dashboard().setVisible(true));
     }
 }

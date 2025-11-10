@@ -56,6 +56,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(null);
 
         footNote.setFont(new java.awt.Font("Segoe UI Emoji", 2, 10)); // NOI18N
@@ -63,7 +64,7 @@ public class Dashboard extends javax.swing.JFrame {
         footNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         footNote.setText("ALL RIGHTS RESERVED");
         getContentPane().add(footNote);
-        footNote.setBounds(300, 400, 210, 16);
+        footNote.setBounds(300, 410, 210, 16);
 
         title.setFont(new java.awt.Font("ROG Fonts", 3, 48)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));

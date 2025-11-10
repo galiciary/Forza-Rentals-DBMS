@@ -1,147 +1,163 @@
--- 1. Create a car rental database
+-- =====================================================
+-- 1. Create the car rental database (safe creation)
+-- =====================================================
 CREATE DATABASE IF NOT EXISTS DBCarRentals;
-
--- 2. Use the car rental database for creating tables
 USE DBCarRentals;
 
--- 3. Create primary tables 
-CREATE TABLE department_record (
-	department_id VARCHAR(10) UNIQUE NOT NULL, # PK
+-- =====================================================
+-- 2. Drop existing tables safely (optional cleanup)
+-- =====================================================
+-- Disable FK checks for clean re-creation
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS 
+    return_details,
+    violation_details,
+    cancellation_details,
+    rental_details,
+    car_record,
+    renter_record,
+    staff_record,
+    branch_record,
+    location_record,
+    job_record,
+    department_record;
+
+-- Re-enable FK checks
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- =====================================================
+-- 3. Create main tables safely
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS department_record (
+    department_id VARCHAR(10) NOT NULL,
     department_name VARCHAR(50) UNIQUE NOT NULL,
-    
     PRIMARY KEY (department_id)
 );
 
-CREATE TABLE job_record (
-	job_id VARCHAR(20) UNIQUE NOT NULL, # PK
+CREATE TABLE IF NOT EXISTS job_record (
+    job_id VARCHAR(20) NOT NULL,
     job_title VARCHAR(100) UNIQUE NOT NULL,
-    job_department_id VARCHAR(10) NOT NULL, # FK
+    job_department_id VARCHAR(10) NOT NULL,
     job_salary DECIMAL(10, 2) NOT NULL,
-    
     PRIMARY KEY (job_id),
-    FOREIGN KEY (job_department_id) REFERENCES department_record (department_id)
+    FOREIGN KEY (job_department_id) REFERENCES department_record(department_id)
 );
 
-CREATE TABLE location_record (
-    location_id VARCHAR(10) UNIQUE NOT NULL, # PK
+CREATE TABLE IF NOT EXISTS location_record (
+    location_id VARCHAR(10) NOT NULL,
     location_city VARCHAR(50) NOT NULL,
     location_province VARCHAR(50) NOT NULL,
-    UNIQUE (location_city, location_province),
-    
-    PRIMARY KEY (location_id)
+    PRIMARY KEY (location_id),
+    UNIQUE (location_city, location_province)
 );
 
-CREATE TABLE branch_record (
-	branch_id VARCHAR(6) UNIQUE NOT NULL,
+CREATE TABLE IF NOT EXISTS branch_record (
+    branch_id VARCHAR(6) NOT NULL,
     branch_name VARCHAR(50) UNIQUE NOT NULL,
     branch_email_address VARCHAR(100) UNIQUE NOT NULL,
     branch_location_id VARCHAR(10) NOT NULL,
-    
     PRIMARY KEY (branch_id),
-    FOREIGN KEY (branch_location_id) REFERENCES location_record (location_id)
+    FOREIGN KEY (branch_location_id) REFERENCES location_record(location_id)
 );
 
-CREATE TABLE staff_record (
-	staff_id VARCHAR(6) UNIQUE NOT NULL, # PK
+CREATE TABLE IF NOT EXISTS staff_record (
+    staff_id VARCHAR(6) NOT NULL,
     staff_first_name VARCHAR(50) NOT NULL,
     staff_last_name VARCHAR(50) NOT NULL,
-    staff_job_id VARCHAR(20) NOT NULL, # FK
-    staff_branch_id VARCHAR(6) NOT NULL, # FK
-    
+    staff_job_id VARCHAR(20) NOT NULL,
+    staff_branch_id VARCHAR(6) NOT NULL,
     PRIMARY KEY (staff_id),
-	FOREIGN KEY (staff_job_id) REFERENCES job_record (job_id),
-    FOREIGN KEY (staff_branch_id) REFERENCES branch_record (branch_id)
+    FOREIGN KEY (staff_job_id) REFERENCES job_record(job_id),
+    FOREIGN KEY (staff_branch_id) REFERENCES branch_record(branch_id)
 );
 
-CREATE TABLE renter_record (
-	renter_dl_number VARCHAR(20) UNIQUE NOT NULL, # PK
+CREATE TABLE IF NOT EXISTS renter_record (
+    renter_dl_number VARCHAR(20) NOT NULL,
     renter_first_name VARCHAR(50) NOT NULL,
     renter_last_name VARCHAR(50) NOT NULL,
-	renter_phone_number VARCHAR(11) NOT NULL,
-	renter_email_address VARCHAR(100) NOT NULL,
-    
+    renter_phone_number VARCHAR(11) NOT NULL,
+    renter_email_address VARCHAR(100) NOT NULL,
     PRIMARY KEY (renter_dl_number)
 );
-        
-CREATE TABLE car_record (
-	car_plate_number VARCHAR(7) UNIQUE NOT NULL, # PK
+
+CREATE TABLE IF NOT EXISTS car_record (
+    car_plate_number VARCHAR(7) NOT NULL,
     car_transmission ENUM('Manual', 'Automatic') NOT NULL,
-	car_model VARCHAR(50) NOT NULL,
+    car_model VARCHAR(50) NOT NULL,
     car_brand VARCHAR(50) NOT NULL,
     car_year_manufactured YEAR NOT NULL,
     car_mileage INT NOT NULL,
     car_seat_number INT NOT NULL,
     car_status ENUM('Available', 'Rented', 'Under Maintenance') NOT NULL DEFAULT 'Available',
-	car_branch_id VARCHAR(6) NOT NULL, # FK
-    
+    car_branch_id VARCHAR(6) NOT NULL,
     PRIMARY KEY (car_plate_number),
-    FOREIGN KEY (car_branch_id) REFERENCES branch_record (branch_id)
+    FOREIGN KEY (car_branch_id) REFERENCES branch_record(branch_id)
 );
 
--- 4. Create transactional tables; label as name_details to easily distinguish
-CREATE TABLE rental_details (
-	rental_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    rental_renter_dl_number VARCHAR(20) NOT NULL, # FK
-    rental_car_plate_number VARCHAR(7) NOT NULL, # FK
-    rental_branch_id VARCHAR(6) NOT NULL, # FK
-    rental_staff_id_pickup VARCHAR(6) NOT NULL, # FK
-    rental_staff_id_return VARCHAR(6) NOT NULL, # FK
-    
+-- =====================================================
+-- 4. Transactional tables (with IF NOT EXISTS)
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS rental_details (
+    rental_id VARCHAR(10) NOT NULL,
+    rental_renter_dl_number VARCHAR(20) NOT NULL,
+    rental_car_plate_number VARCHAR(7) NOT NULL,
+    rental_branch_id VARCHAR(6) NOT NULL,
+    rental_staff_id_pickup VARCHAR(6) NOT NULL,
+    rental_staff_id_return VARCHAR(6) NOT NULL,
     rental_datetime DATETIME NOT NULL,
     rental_pickup_datetime DATETIME NOT NULL,
     rental_expected_return_datetime DATETIME NOT NULL,
     rental_actual_return_datetime DATETIME NOT NULL,
-    
     rental_total_payment DECIMAL(10, 2) NOT NULL,
     rental_status ENUM('Upcoming', 'Active', 'Completed', 'Cancelled') NOT NULL,
-    
     PRIMARY KEY (rental_id),
-    FOREIGN KEY (rental_renter_dl_number) REFERENCES renter_record (renter_dl_number),
-    FOREIGN KEY (rental_car_plate_number) REFERENCES car_record (car_plate_number),
-    FOREIGN KEY (rental_branch_id) REFERENCES branch_record (branch_id),
-    FOREIGN KEY (rental_staff_id_pickup) REFERENCES staff_record (staff_id),
-    FOREIGN KEY (rental_staff_id_return) REFERENCES staff_record (staff_id)
+    FOREIGN KEY (rental_renter_dl_number) REFERENCES renter_record(renter_dl_number),
+    FOREIGN KEY (rental_car_plate_number) REFERENCES car_record(car_plate_number),
+    FOREIGN KEY (rental_branch_id) REFERENCES branch_record(branch_id),
+    FOREIGN KEY (rental_staff_id_pickup) REFERENCES staff_record(staff_id),
+    FOREIGN KEY (rental_staff_id_return) REFERENCES staff_record(staff_id)
 );
 
-CREATE TABLE cancellation_details (
-    cancellation_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    cancellation_rental_id VARCHAR(10) UNIQUE NOT NULL, # FK
-    cancellation_staff_id VARCHAR(6) NOT NULL, # FK
+CREATE TABLE IF NOT EXISTS cancellation_details (
+    cancellation_id VARCHAR(10) NOT NULL,
+    cancellation_rental_id VARCHAR(10) UNIQUE NOT NULL,
+    cancellation_staff_id VARCHAR(6) NOT NULL,
     cancellation_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cancellation_reason VARCHAR(150) NOT NULL,
-    
     PRIMARY KEY (cancellation_id),
-    FOREIGN KEY (cancellation_rental_id) REFERENCES rental_details (rental_id),
-    FOREIGN KEY (cancellation_staff_id) REFERENCES staff_record (staff_id)
+    FOREIGN KEY (cancellation_rental_id) REFERENCES rental_details(rental_id),
+    FOREIGN KEY (cancellation_staff_id) REFERENCES staff_record(staff_id)
 );
 
-CREATE TABLE violation_details (
-	violation_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    violation_rental_id VARCHAR(10) NOT NULL, # FK
-    violation_staff_id VARCHAR(6) NOT NULL, # FK
-    
-	violation_type ENUM('Late Return', 'Car Damage') NOT NULL,
-	violation_penalty_fee DECIMAL(10, 2) NOT NULL,
-    
-	PRIMARY KEY (violation_id),
-	FOREIGN KEY (violation_rental_id) REFERENCES rental_details (rental_id),
-	FOREIGN KEY (violation_staff_id) REFERENCES staff_record (staff_id)
+CREATE TABLE IF NOT EXISTS violation_details (
+    violation_id VARCHAR(10) NOT NULL,
+    violation_rental_id VARCHAR(10) NOT NULL,
+    violation_staff_id VARCHAR(6) NOT NULL,
+    violation_type ENUM('Late Return', 'Car Damage') NOT NULL,
+    violation_penalty_fee DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (violation_id),
+    FOREIGN KEY (violation_rental_id) REFERENCES rental_details(rental_id),
+    FOREIGN KEY (violation_staff_id) REFERENCES staff_record(staff_id)
 );
 
-CREATE TABLE return_details (
-	return_id VARCHAR(10) UNIQUE NOT NULL, # PK
-    return_rental_id VARCHAR(10) UNIQUE NOT NULL, # FK
-    return_staff_id VARCHAR(6) NOT NULL, # FK
-    
+CREATE TABLE IF NOT EXISTS return_details (
+    return_id VARCHAR(10) NOT NULL,
+    return_rental_id VARCHAR(10) UNIQUE NOT NULL,
+    return_staff_id VARCHAR(6) NOT NULL,
     PRIMARY KEY (return_id),
-    FOREIGN KEY (return_rental_id) REFERENCES rental_details (rental_id),
-	FOREIGN KEY (return_staff_id) REFERENCES staff_record (staff_id)
+    FOREIGN KEY (return_rental_id) REFERENCES rental_details(rental_id),
+    FOREIGN KEY (return_staff_id) REFERENCES staff_record(staff_id)
 );
 
--- 5. Input default data
-# Department Record
-INSERT INTO department_record (department_id, department_name)
-VALUES
+-- =====================================================
+-- 5. Default data insertion (safe inserts)
+-- =====================================================
+-- Use INSERT IGNORE so reruns don’t cause duplicate errors
+
+INSERT IGNORE INTO department_record (department_id, department_name) VALUES
 ('DEPT_ADM', 'Administration'),
 ('DEPT_FIN', 'Finance'),
 ('DEPT_HR', 'Human Resources'),
@@ -153,8 +169,9 @@ VALUES
 ('DEPT_MTN', 'Maintenance'),
 ('DEPT_LGL', 'Legal Affairs');
 
+-- (Repeat for other insert sections)
 # Job Record
-INSERT INTO job_record (job_id, job_title, job_department_id, job_salary) VALUES
+INSERT IGNORE INTO job_record (job_id, job_title, job_department_id, job_salary) VALUES
 -- Administration Department
 ('ADM001', 'President', 'DEPT_ADM', 150000.00),
 ('ADM002', 'Executive Assistant', 'DEPT_ADM', 60000.00),
@@ -206,7 +223,7 @@ INSERT INTO job_record (job_id, job_title, job_department_id, job_salary) VALUES
 ('LGL003', 'Paralegal Assistant', 'DEPT_LGL', 50000.00);
 
 # Location Record
-INSERT INTO location_record (location_id, location_city, location_province)
+INSERT IGNORE INTO location_record (location_id, location_city, location_province)
 VALUES
 -- Metro Manila (multiple key cities)
 ('MNL001', 'Manila', 'Metro Manila'),
@@ -229,7 +246,7 @@ VALUES
 ('NEG001', 'Bacolod City', 'Negros Occidental');
 
 # Branch Record
-INSERT INTO branch_record (branch_id, branch_name, branch_email_address, branch_location_id) VALUES
+INSERT IGNORE INTO branch_record (branch_id, branch_name, branch_email_address, branch_location_id) VALUES
 -- Metro Manila
 ('BRN001', 'Forza Rentals Manila', 'manila@forzarentals.ph', 'MNL001'),
 ('BRN002', 'Forza Rentals Makati', 'makati@forzarentals.ph', 'MNL002'),
@@ -251,7 +268,7 @@ INSERT INTO branch_record (branch_id, branch_name, branch_email_address, branch_
 ('BRN014', 'Forza Rentals Bacolod City', 'bacolod@forzarentals.ph', 'NEG001');
 
 # Staff Record
-INSERT INTO staff_record (staff_id, staff_first_name, staff_last_name, staff_job_id, staff_branch_id)
+INSERT IGNORE INTO staff_record (staff_id, staff_first_name, staff_last_name, staff_job_id, staff_branch_id)
 VALUES
 -- Headquarters / Administration (Metro Manila)
 ('STF001', 'Isabella', 'Reyes', 'ADM001', 'BRN001'), -- President
@@ -277,7 +294,7 @@ VALUES
 ('STF015', 'Mia', 'Villanueva', 'CST002', 'BRN011'); -- Customer Service Representative
 
 # Renter Record    
-INSERT INTO renter_record (renter_dl_number, renter_first_name, renter_last_name, renter_phone_number, renter_email_address)
+INSERT IGNORE INTO renter_record (renter_dl_number, renter_first_name, renter_last_name, renter_phone_number, renter_email_address)
 VALUES
 ('MC1234567890', 'Angela', 'Cruz', '09171234567', 'angela.cruz@email.com'),
 ('LL0000000001', 'Martin', 'Santos', '09281234567', 'martin.santos@email.com'),
@@ -291,7 +308,7 @@ VALUES
 ('LL4455667788', 'Rafael', 'Chua', '09183456789', 'rafael.chua@email.com');
 
 # Car Record
-INSERT INTO car_record (car_plate_number, car_transmission, car_model, car_brand, car_year_manufactured, car_mileage, car_seat_number, car_status, car_branch_id)
+INSERT IGNORE INTO car_record (car_plate_number, car_transmission, car_model, car_brand, car_year_manufactured, car_mileage, car_seat_number, car_status, car_branch_id)
 VALUES
 -- Manila Branch
 ('ABC1234', 'Automatic', 'Vios', 'Toyota', 2022, 18000, 5, 'Available', 'BRN001'),
@@ -330,7 +347,7 @@ VALUES
 ('NOP4455', 'Automatic', 'Terra', 'Nissan', 2023, 7000, 7, 'Available', 'BRN011');
 
 # Rental Details
-INSERT INTO rental_details (
+INSERT IGNORE INTO rental_details (
     rental_id,
     rental_renter_dl_number,
     rental_car_plate_number,
