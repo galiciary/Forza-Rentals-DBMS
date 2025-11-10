@@ -1,31 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package View;
 
 /**
- * The {@code Dashboard} class represents the main interface of the Forza Car Rental system.
- * <p>
- * It serves as the central navigation hub for the application, allowing staff members
- * to access core functionalities such as managing records, creating transactions,
- * and exiting the system.
- * </p>
- * <p>
- * This class is part of the View layer (V in MVC), focusing solely on the user interface
- * and delegating business logic to the Controller layer.
- * </p>
  *
- * <p><b>Features:</b></p>
- * <ul>
- *   <li>Displays system title and branding.</li>
- *   <li>Provides navigation buttons for major system operations.</li>
- *   <li>Includes basic UI enhancements such as hover effects and styled buttons.</li>
- * </ul>
- *
- * @author Galicia
- * @author Marcelino
- * @author Samarista
- * @author Sy
- * @version 1.0
+ * @author Lance
  */
-
 public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
@@ -46,79 +28,93 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        footNote = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         manageRecords = new javax.swing.JButton();
-        exit = new javax.swing.JButton();
         createTransactions = new javax.swing.JButton();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel2 = new javax.swing.JLabel();
+        exit = new javax.swing.JButton();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Dashboard");
-        setPreferredSize(new java.awt.Dimension(1280, 720));
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        footNote.setFont(new java.awt.Font("Segoe UI Emoji", 2, 10)); // NOI18N
-        footNote.setForeground(new java.awt.Color(255, 255, 255));
-        footNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        footNote.setText("ALL RIGHTS RESERVED");
-        getContentPane().add(footNote);
-        footNote.setBounds(300, 410, 210, 16);
-
-        title.setFont(new java.awt.Font("ROG Fonts", 3, 48)); // NOI18N
+        title.setFont(new java.awt.Font("ROG Fonts", 0, 48)); // NOI18N
         title.setForeground(new java.awt.Color(255, 255, 255));
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Forza Rentals");
-        getContentPane().add(title);
-        title.setBounds(140, 50, 540, 50);
+        title.setText("FORZA RENTALS");
+        title.setToolTipText("");
+        getContentPane().add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 530, 40));
+
+        jPanel1.setOpaque(false);
 
         manageRecords.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         manageRecords.setText("RECORDS");
+        manageRecords.setIconTextGap(0);
         manageRecords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageRecordsActionPerformed(evt);
             }
         });
-        getContentPane().add(manageRecords);
-        manageRecords.setBounds(80, 200, 160, 30);
-
-        exit.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
-        exit.setText("EXIT");
-        exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
-            }
-        });
-        getContentPane().add(exit);
-        exit.setBounds(80, 300, 160, 30);
 
         createTransactions.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         createTransactions.setText("TRANSACTIONS");
-        createTransactions.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        createTransactions.setMaximumSize(new java.awt.Dimension(72, 27));
-        createTransactions.setMinimumSize(new java.awt.Dimension(72, 27));
-        createTransactions.setPreferredSize(new java.awt.Dimension(72, 27));
+        createTransactions.setIconTextGap(0);
         createTransactions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createTransactionsActionPerformed(evt);
             }
         });
-        getContentPane().add(createTransactions);
-        createTransactions.setBounds(80, 250, 160, 30);
 
-        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jLayeredPane1);
-        jLayeredPane1.setBounds(0, 458, 0, 0);
+        exit.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        exit.setText("EXIT");
+        exit.setIconTextGap(0);
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CCINFOM FILES (2).png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jLabel2.setAlignmentY(0.0F);
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, -40, 820, 540);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(manageRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(createTransactions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(manageRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(createTransactions, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 160, 190));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/CCINFOM FILES (2).png"))); // NOI18N
+        background.setText("jLabel1");
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void manageRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRecordsActionPerformed
+        javax.swing.JFrame frame = new javax.swing.JFrame("Manage Records");
+        frame.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        frame.getContentPane().add(new View.ManageRecord());
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);    
+    }//GEN-LAST:event_manageRecordsActionPerformed
 
     private void createTransactionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createTransactionsActionPerformed
         // TODO add your handling code here:
@@ -128,41 +124,12 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_exitActionPerformed
 
-    private void manageRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRecordsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_manageRecordsActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Dashboard().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
     private javax.swing.JButton createTransactions;
     private javax.swing.JButton exit;
-    private javax.swing.JLabel footNote;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton manageRecords;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
